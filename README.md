@@ -5,7 +5,7 @@ WPF plug-in API/framework that utilizes AvalonDock for visual management.
 We want to thank the folks over at [Xceed](https://xceed.com/) for putting together such an amazing product like [AvalonDock](https://avalondock.codeplex.com/).
 
 ### Development Overview
-There are five parts to using the API and framework. First, your "plug-in" file.
+There are a few things to using the API and framework. First, your "plug-in" file.
 
 #### Your Plug-in File
 ```C#
