@@ -1,0 +1,11 @@
+1. Start Developer Command Prompt for VS2015 (or whatever VS version is installed) (run as administrator)
+2. Change to top level directory for the project
+	a. cd "C:\Users\Aaron\Documents\Visual Studio 2015\Projects\DataPointGIS.com\PluginDock\PluginDock\PluginDockUI
+3. Use the command regen to generate resources file
+	a. resgen "Properties\Resources.resx" "Properties\PluginDockUI.resources"
+4. Create a delay signed (using the base DLL's snk) satelite assembly using the base DLL as a template
+	a. al /target:lib /embed:"Properties\PluginDockUI.resources" /culture:en-US /out:"Properties\PluginDockUI.resources.dll" /template:"bin\Debug\PluginDockUI.dll" /delay+ /keyfile:PluginDockUISnk.snk"
+5. Sign the satelite assembly for real
+	a. sn -R "Properties\PluginDockUI.resources.dll" PluginDockUISnk.snk
+6. Link generated resources.dll to main assembly (***UN-SURE OF THIS STEP***)
+	a. al /target:lib /link:"Properties\PluginDockUI.resources.dll" /out:"bin\Debug\PluginDockUI.dll"

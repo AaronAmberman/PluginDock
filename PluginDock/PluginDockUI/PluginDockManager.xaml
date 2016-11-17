@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="PluginDockUI.PluginDockManager"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PluginDockUI"
+             xmlns:localModeling="clr-namespace:PluginDockUI.Modeling"
+             xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+             mc:Ignorable="d"
+             DataContextChanged="PluginDockManager_OnDataContextChanged"
+             d:DataContext="{d:DesignInstance {x:Type localModeling:PluginDockManagerViewModel}}">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type local:PluginDockManager}">
+            <Setter Property="LayoutItemContainerStyleSelector">
+                <Setter.Value>
+                    <local:PluginStyleSelector>
+                        <local:PluginStyleSelector.LayoutAnchorableStyle>
+                            <Style TargetType="{x:Type xcad:LayoutAnchorableItem}">
+                                <Setter Property="CanFloat" Value="{Binding Model.CanFloat}" />
+                                <Setter Property="CanHide" Value="{Binding Model.CanClose}" />
+                                <Setter Property="HideCommand" Value="{Binding Model.CloseCommand}" />
+                                <Setter Property="Title" Value="{Binding Model.FrameworkElementPlugin.DisplayName}" />
+                            </Style>
+                        </local:PluginStyleSelector.LayoutAnchorableStyle>
+                        <local:PluginStyleSelector.LayoutDocumentStyle>
+                            <Style TargetType="{x:Type xcad:LayoutDocumentItem}">
+                                <Setter Property="CanClose" Value="{Binding Model.CanClose}" />
+                                <Setter Property="CanFloat" Value="{Binding Model.CanFloat}" />
+                                <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}" />
+                                <Setter Property="Title" Value="{Binding Model.FrameworkElementPlugin.DisplayName}" />
+                            </Style>
+                        </local:PluginStyleSelector.LayoutDocumentStyle>
+                    </local:PluginStyleSelector>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="LayoutItemTemplateSelector">
+                <Setter.Value>
+                    <local:PluginDockTemplateSelector>
+                        <local:PluginDockTemplateSelector.FrameworkElementTemplate>
+                            <DataTemplate DataType="{x:Type localModeling:FrameworkElementPluginViewModel}">
+                                <ContentPresenter Content="{Binding FrameworkElementPlugin.MainControl}" />
+                            </DataTemplate>
+                        </local:PluginDockTemplateSelector.FrameworkElementTemplate>
+                    </local:PluginDockTemplateSelector>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <xcad:DockingManager AnchorablesSource="{Binding AnchorablePlugins}"
+                         DocumentsSource="{Binding DocumentPlugins}"
+                         Theme="{Binding Theme}" 
+                         LayoutItemContainerStyleSelector="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:PluginDockManager}}, Path=LayoutItemContainerStyleSelector}"
+                         LayoutItemTemplateSelector="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:PluginDockManager}}, Path=LayoutItemTemplateSelector}">
+        
+    </xcad:DockingManager>
+</UserControl>
