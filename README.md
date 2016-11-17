@@ -165,4 +165,4 @@ The thing that is most important to note is the fact that **the API/framework do
 
 
 ## Example Screen Shot
-![alt text](https://github.com/SL-X/PluginDock/blob/master/PluginDock.png)
+![alt text](https://github.com/DotNetDevCreationist/PluginDock/blob/master/PluginDock.png)
