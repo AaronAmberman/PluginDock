@@ -95,7 +95,10 @@ namespace PluginDock.Servicing
                 List<PluginLocation> plugins = new List<PluginLocation>();
 
                 var pluginNames = Directory.GetFiles(pluginLocation, "*.dll").ToList();
+                pluginNames.AddRange(GetAllSubFileTypes(pluginLocation, "*.dll"));
+
                 var symbolDatabases = Directory.GetFiles(pluginLocation, "*.pdb").ToList();
+                symbolDatabases.AddRange(GetAllSubFileTypes(pluginLocation, "*.pdb"));
 
                 foreach (string pluginNameWithExtension in pluginNames)
                 {
@@ -127,6 +130,24 @@ namespace PluginDock.Servicing
             {
                 throw new PluginException("An error occurred attempting to retrieve the plug-in assembly names.", ex);
             }
+        }
+
+        private IList<string> GetAllSubFileTypes(string path, string searchPattern)
+        {
+            List<string> files = Directory.GetFiles(path, searchPattern).ToList();
+
+            // get our sub-directories matching files
+
+            string[] subDirs = Directory.GetDirectories(path);
+
+            foreach (string dir in subDirs)
+            {
+                List<string> subFiles = GetAllSubFileTypes(dir, searchPattern).ToList();
+
+                files.AddRange(subFiles);
+            }
+
+            return files;
         }
         #endregion
     }
