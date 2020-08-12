@@ -158,8 +158,7 @@ The thing that is most important to note is the fact that **the API/framework do
 
 **A few important things to note.**
 - You should NOT make your plug-in directory your application's main directory. That is a very bad idea!
-- All non GAC registered dependent assemblies must be included in the plug-in directory with your plug-in.
-- As redundant as it may seem, the PluginDock.dll MUST be included in your plug-in directory.
+- All non GAC registered dependent assemblies must be included in the plug-in directory with your plug-in. You can exclude assemblies already loaded by main application or other plug-ins as their types will already be available at run-time.
 - The `PluginDockManager` doesn't directly support EDA. It requires a `PluginDockManagerViewModel` to be set as its `DataContext`. However it's up to you if you decide to assign the `DataContext` via a binding or set it manually in a code behind file.
 
 
